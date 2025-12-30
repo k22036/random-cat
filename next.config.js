@@ -6,6 +6,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "*.thecatapi.com",
       },
+      {
+        protocol: "https",
+        hostname: "*.tumblr.com",
+      },
     ],
   },
 };
