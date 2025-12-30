@@ -1,4 +1,5 @@
 import type { GetServerSideProps, NextPage } from "next";
+import Image from "next/image";
 import { useState } from "react";
 import styles from "./index.module.css";
 
@@ -28,7 +29,17 @@ const IndexPage: NextPage<Props> = ({ initialImageUrl }) => {
       <button onClick={handleClick} className={styles.button}>
         One more cat!
       </button>
-      <div className={styles.frame}>{loading || <img src={imageUrl} />}</div>
+      <div className={styles.frame}>
+        {loading || (
+          <Image
+            src={imageUrl}
+            alt="A random cat"
+            width={400}
+            height={400}
+            style={{ width: "auto", height: "auto" }}
+          />
+        )}
+      </div>
     </div>
   );
 };
@@ -44,10 +55,10 @@ export const getServerSideProps: GetServerSideProps<Props> = async () => {
   };
 };
 
-type Image = {
+type CatImage = {
   url: string;
 };
-const fetchImage = async (): Promise<Image> => {
+const fetchImage = async (): Promise<CatImage> => {
   const res = await fetch("https://api.thecatapi.com/v1/images/search");
   const images = await res.json();
   console.log(images);
