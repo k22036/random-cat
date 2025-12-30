@@ -36,7 +36,7 @@ const IndexPage: NextPage<Props> = ({ initialImageUrl }) => {
             alt="A random cat"
             width={400}
             height={400}
-            style={{ width: "auto", height: "auto" }}
+            style={{ width: "400px", height: "auto" }}
           />
         )}
       </div>
