@@ -1,4 +1,4 @@
-import { GetServerSideProps, NextPage } from "next";
+import type { GetServerSideProps, NextPage } from "next";
 import { useState } from "react";
 import styles from "./index.module.css";
 
@@ -28,9 +28,7 @@ const IndexPage: NextPage<Props> = ({ initialImageUrl }) => {
       <button onClick={handleClick} className={styles.button}>
         One more cat!
       </button>
-      <div className={styles.frame}>
-        {loading || <img src={imageUrl} />}
-        </div>
+      <div className={styles.frame}>{loading || <img src={imageUrl} />}</div>
     </div>
   );
 };
