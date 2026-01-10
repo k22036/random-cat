@@ -1,5 +1,7 @@
 import type { NextConfig } from "next";
 
+const vercelDevHost = "https://vercel.live";
+
 const nextConfig: NextConfig = {
   async headers() {
     return [
@@ -22,11 +24,12 @@ const nextConfig: NextConfig = {
             key: "Content-Security-Policy",
             value: [
               "default-src 'self'",
-              "script-src 'self' 'unsafe-eval' 'unsafe-inline' https://vercel.live",
+              `script-src 'self' 'unsafe-eval' 'unsafe-inline' ${vercelDevHost}`,
               "style-src 'self' 'unsafe-inline' https:",
-              "img-src 'self' data: https:",
+              `img-src 'self' data: https: ${vercelDevHost}`,
               "font-src 'self' data: https:",
-              "connect-src 'self' https:",
+              `connect-src 'self' https: ${vercelDevHost}`,
+              `frame-src 'self' ${vercelDevHost}`,
             ].join("; "),
           },
         ],
