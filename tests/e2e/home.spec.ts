@@ -12,6 +12,16 @@ test.beforeEach(async ({ page }) => {
   await page.waitForLoadState("load");
 });
 
+test.afterEach(async ({ page }, testInfo) => {
+  if (testInfo.status !== testInfo.expectedStatus) {
+    const screenshot = await page.screenshot({ fullPage: true });
+    await testInfo.attach("screenshot", {
+      body: screenshot,
+      contentType: "image/png",
+    });
+  }
+});
+
 test.describe("Home Tests", () => {
   const checkImage = async (page: Page): Promise<string> => {
     // alt属性で対象の画像を特定
@@ -39,32 +49,14 @@ test.describe("Home Tests", () => {
     await button.click();
   };
 
-  test("should render image on home page", async ({ page }, testInfo) => {
-    try {
-      await checkImage(page);
-    } catch (error) {
-      const screenshot = await page.screenshot({ fullPage: true });
-      await testInfo.attach("screenshot", {
-        body: screenshot,
-        contentType: "image/png",
-      });
-      throw error;
-    }
+  test("should render image on home page", async ({ page }) => {
+    await checkImage(page);
   });
 
-  test("should change image on home page", async ({ page }, testInfo) => {
-    try {
-      const src1 = await checkImage(page);
-      await clickButton(page);
-      const src2 = await checkImage(page);
-      expect(src1).not.toBe(src2);
-    } catch (error) {
-      const screenshot = await page.screenshot({ fullPage: true });
-      await testInfo.attach("screenshot", {
-        body: screenshot,
-        contentType: "image/png",
-      });
-      throw error;
-    }
+  test("should change image on home page", async ({ page }) => {
+    const src1 = await checkImage(page);
+    await clickButton(page);
+    const src2 = await checkImage(page);
+    expect(src1).not.toBe(src2);
   });
 });
