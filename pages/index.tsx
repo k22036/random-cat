@@ -10,13 +10,14 @@ type Props = {
 
 // ページコンポーネント関数にpropsを受け取る引数を追加する
 const IndexPage: NextPage<Props> = ({ initialImageUrl }) => {
-  const [imageUrl, setImageUrl] = useState(initialImageUrl); // 初期値を渡す
+  const [clickedUrl, setClickedUrl] = useState<string | null>(null);
   const [loading, setLoading] = useState(false); // 初期状態はfalseにしておく
+  const imageUrl = clickedUrl ?? initialImageUrl;
 
   const handleClick = async () => {
     setLoading(true);
     const newImage = await fetchImage();
-    setImageUrl(newImage.url);
+    setClickedUrl(newImage.url);
     setLoading(false);
   };
 
