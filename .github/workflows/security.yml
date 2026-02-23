@@ -48,7 +48,7 @@ jobs:
         with:
           persist-credentials: false
 
-      - uses: k22036/react-doctor@42d1be1b098950c456f42342b6614516e9548fd7
+      - uses: k22036/react-doctor@d4bc3856e36774a146974534e3845d1af45ea1ee
         with:
           verbose: "true"
           github-token: ${{ secrets.GITHUB_TOKEN }}
