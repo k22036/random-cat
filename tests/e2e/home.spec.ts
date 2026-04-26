@@ -1,15 +1,25 @@
 import { expect, type Page, test } from "@playwright/test";
 
 test.beforeEach(async ({ page }) => {
-  // console.errorをキャッチしてテスト失敗にする
+  const consoleErrors: string[] = [];
+
+  // console.errorをキャッチして収集する
   page.on("console", (msg) => {
     if (msg.type() === "error") {
-      throw new Error(`console.error: ${msg.text()}`);
+      // Next.js開発サーバー固有のMIMEタイプ警告は除外する
+      if (msg.text().includes("_clientMiddlewareManifest")) return;
+      consoleErrors.push(msg.text());
     }
   });
 
   await page.goto("/");
   await page.waitForLoadState("load");
+
+  // ページ読み込み後にまとめてアサートする
+  expect(
+    consoleErrors,
+    `予期しないconsole.errorが発生しました:\n${consoleErrors.join("\n")}`,
+  ).toHaveLength(0);
 });
 
 test.afterEach(async ({ page }, testInfo) => {
