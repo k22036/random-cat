@@ -14,7 +14,7 @@ const IndexPage: NextPage<Props> = ({ initialImageUrl }) => {
   const [loading, setLoading] = useState(false); // 初期状態はfalseにしておく
   const imageUrl = clickedUrl.current ?? initialImageUrl;
 
-  const handleClick = async () => {
+  const fetchNewImage = async () => {
     setLoading(true);
     const newImage = await fetchImage();
     clickedUrl.current = newImage.url;
@@ -23,7 +23,7 @@ const IndexPage: NextPage<Props> = ({ initialImageUrl }) => {
 
   return (
     <div className={styles.page}>
-      <button type="button" onClick={handleClick} className={styles.button}>
+      <button type="button" onClick={fetchNewImage} className={styles.button}>
         One more cat!
       </button>
       <div className={styles.frame}>
