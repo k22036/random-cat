@@ -1,6 +1,6 @@
 import type { GetServerSideProps, NextPage } from "next";
 import Image from "next/image";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import styles from "./index.module.css";
 
 // getServerSidePropsから渡されるpropsの型
@@ -10,14 +10,14 @@ type Props = {
 
 // ページコンポーネント関数にpropsを受け取る引数を追加する
 const IndexPage: NextPage<Props> = ({ initialImageUrl }) => {
-  const [clickedUrl, setClickedUrl] = useState<string | null>(null);
+  const clickedUrl = useRef<string | null>(null);
   const [loading, setLoading] = useState(false); // 初期状態はfalseにしておく
-  const imageUrl = clickedUrl ?? initialImageUrl;
+  const imageUrl = clickedUrl.current ?? initialImageUrl;
 
   const handleClick = async () => {
     setLoading(true);
     const newImage = await fetchImage();
-    setClickedUrl(newImage.url);
+    clickedUrl.current = newImage.url;
     setLoading(false);
   };
 
