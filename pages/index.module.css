@@ -44,6 +44,7 @@
 }
 
 .frame {
+  position: relative;
   width: 400px;
   aspect-ratio: 1 / 1;
   box-sizing: border-box;
