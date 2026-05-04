@@ -30,10 +30,11 @@ const IndexPage: NextPage<Props> = ({ initialImageUrl }) => {
         {loading || (
           <Image
             src={imageUrl}
+            priority
             alt="A random cat"
-            width={400}
-            height={400}
-            style={{ width: "400px", height: "auto" }}
+            fill
+            sizes="400px"
+            style={{ objectFit: "contain" }}
           />
         )}
       </div>
