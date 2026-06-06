@@ -48,7 +48,4 @@ jobs:
         with:
           persist-credentials: false
 
-      - uses: millionco/react-doctor@c2198ed6751cf233f368a1c774f1d136bbcf0471 # main
-        with:
-          verbose: "true"
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - uses: millionco/react-doctor@5448962028d9c616ec126751af0c8c405748f7d4 # main
